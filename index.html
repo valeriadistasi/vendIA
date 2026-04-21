@@ -533,6 +533,7 @@ Respondé ÚNICAMENTE con JSON válido (sin markdown, sin backticks):
   });
   if(!res.ok) throw new Error('Error API: '+res.status);
   const data = await res.json();
+  if (!data || !data.content) throw new Error('Respuesta inválida: ' + JSON.stringify(data));
   const raw = data.content.map(b=>b.text||'').join('');
   return JSON.parse(raw.replace(/```json|```/g,'').trim());
 }
